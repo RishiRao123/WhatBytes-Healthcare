@@ -1,4 +1,5 @@
 import Patient from "../models/patient.model.js";
+import { handleError } from "../constants/constants.js";
 
 // create a patient
 const addPatient = async (req, res) => {
@@ -14,7 +15,7 @@ const addPatient = async (req, res) => {
       data: patient,
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    handleError(res, error);
   }
 };
 
@@ -24,7 +25,7 @@ const getPatients = async (req, res) => {
     const patients = await Patient.find({ user: req.user.id });
     res.status(200).json({ success: true, data: patients });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    handleError(res, error);
   }
 };
 
@@ -44,7 +45,7 @@ const getPatientById = async (req, res) => {
 
     res.status(200).json({ success: true, data: patient });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    handleError(res, error);
   }
 };
 
@@ -73,10 +74,9 @@ const updatePatient = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Patient updated", data: patient });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    handleError(res, error);
   }
 };
-
 
 // delete patient
 const deletePatient = async (req, res) => {
@@ -96,7 +96,7 @@ const deletePatient = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Patient deleted successfully" });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    handleError(res, error);
   }
 };
 

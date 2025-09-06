@@ -4,7 +4,7 @@ import Doctor from "../models/doctor.model.js";
 import { handleError } from "../constants/constants.js";
 
 // Assign doctor to patient
-export const createMapping = async (req, res) => {
+const createMapping = async (req, res) => {
   try {
     const { patient, doctor } = req.body;
 
@@ -39,7 +39,7 @@ export const createMapping = async (req, res) => {
 };
 
 // Get all mappings
-export const getAllMappings = async (req, res) => {
+const getAllMappings = async (req, res) => {
   try {
     const mappings = await Mapping.find()
       .populate("patient", "name age gender disease")
@@ -52,7 +52,7 @@ export const getAllMappings = async (req, res) => {
 };
 
 // Get doctors by patient
-export const getDoctorsByPatient = async (req, res) => {
+const getDoctorsByPatient = async (req, res) => {
   try {
     const { patientId } = req.params;
 
@@ -71,7 +71,7 @@ export const getDoctorsByPatient = async (req, res) => {
 };
 
 // Delete mapping
-export const deleteMapping = async (req, res) => {
+const deleteMapping = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -90,3 +90,5 @@ export const deleteMapping = async (req, res) => {
     handleError(res, error);
   }
 };
+
+export { createMapping, getAllMappings, getDoctorsByPatient, deleteMapping };

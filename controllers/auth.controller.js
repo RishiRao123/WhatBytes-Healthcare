@@ -2,6 +2,7 @@ import UserModel from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import Joi from "joi";
+import { handleError } from "../constants/constants.js";
 
 const userSchema = Joi.object({
   name: Joi.string().min(3).max(50).required(),
@@ -46,12 +47,11 @@ const register = async (req, res) => {
       user: { id: newUser._id, name: newUser.name, email: newUser.email },
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    handleError(res, error);
   }
 };
 
-
-// User login 
+// User login
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -92,7 +92,7 @@ const login = async (req, res) => {
       user: { id: user._id, name: user.name, email: user.email },
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    handleError(res, error);
   }
 };
 
